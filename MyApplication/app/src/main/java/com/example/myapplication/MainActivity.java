@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Credentials;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +14,11 @@ import com.example.myapplication.bbdd.BaseDatos;
 import com.example.myapplication.bbdd.model.User;
 
 import io.realm.Realm;
+import io.realm.mongodb.*;
 
 public class MainActivity extends AppCompatActivity {
     private Realm con;
+    private String appId = "nishida-hsltg";
 
 
     @Override
@@ -25,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            Realm.init(this);
+            App app = new App(new AppConfiguration.Builder(appId).build());
+
             createAdminUser();
+
+
 
             //BOTÓN LOGIN
             Button btnLogin = findViewById(R.id.btnLogin);
@@ -65,6 +73,29 @@ public class MainActivity extends AppCompatActivity {
     public void login(){
         TextView email = findViewById(R.id.email);
         TextView password = findViewById(R.id.password);
+
+
+        /*
+            Credentials credentials = Credentials.anonymous();
+            app.loginAsync(credentials, result -> {
+                if (result.isSuccess()) {
+                    Log.v("QUICKSTART", "Successfully authenticated anonymously.");
+                    User user = app.currentUser();
+                    String partitionValue = "My Project";
+                    SyncConfiguration config = new SyncConfiguration.Builder(
+                            user,
+                            partitionValue)
+                        .build();
+                    uiThreadRealm = Realm.getInstance(config);
+                    addChangeListenerToRealm(uiThreadRealm);
+                    FutureTask<String> task = new FutureTask(new BackgroundQuickStart(app.currentUser()), "test");
+                    ExecutorService executorService = Executors.newFixedThreadPool(2);
+                    executorService.execute(task);
+                } else {
+                    Log.e("QUICKSTART", "Failed to log in. Error: " + result.getError());
+                }
+            });
+             */
 
         try {
             User user = con.where(User.class).equalTo("email", email.getText().toString()).findFirst();
