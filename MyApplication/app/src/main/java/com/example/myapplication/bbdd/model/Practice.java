@@ -11,7 +11,7 @@ public class Practice extends RealmObject {
     Long id;
     String place;
 
-    LocalDateTime date;
+    String date;
 
     public String getPlace() {
         return place;
@@ -29,11 +29,11 @@ public class Practice extends RealmObject {
         this.place = place;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

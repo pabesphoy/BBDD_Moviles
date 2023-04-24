@@ -1,29 +1,30 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import android.widget.Toast;
-
-import com.example.myapplication.bbdd.BaseDatos;
-import com.example.myapplication.bbdd.model.User;
-
-import org.w3c.dom.Text;
-
+import com.example.myapplication.bbdd.model.AppUser;
 import io.realm.Realm;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Realm con = BaseDatos.getInstance().conectar(getBaseContext());
+    private Realm con;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        try {
+            con = Utils.getRealm();
+        }catch (Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG);
+        }
+
 
         //BOTÓN REGISTER
         Button btnRegister = findViewById(R.id.btnRegister);
@@ -33,27 +34,40 @@ public class RegisterActivity extends AppCompatActivity {
                 register();
             }
         });
+
     }
 
     private void register() {
+
+
+        String name = ((TextView)findViewById(R.id.name)).getText().toString();
+        String surname = ((TextView)findViewById(R.id.surname)).getText().toString();
+        String birthday = findViewById(R.id.birthday).toString();
         String email = ((TextView)findViewById(R.id.email)).getText().toString();
         String password = ((TextView)findViewById(R.id.password)).getText().toString();
         String passwordConfirm = ((TextView)findViewById(R.id.passwordConfirm)).getText().toString();
+        boolean isPlayer = ((ToggleButton)findViewById(R.id.isPlayer)).isChecked();
 
-        if(email.length() == 0 || password.length() == 0 || passwordConfirm.length() == 0){
+        if(name.isBlank() || surname.isBlank() || birthday.isBlank() || email.isBlank() || password.isBlank() || passwordConfirm.isBlank()){
             Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
-        }else if(con.where(User.class).equalTo("email", email).count() > 0){
+        }else if(con.where(AppUser.class).equalTo("email", email).count() > 0){
             Toast.makeText(this, "Este usuario ya está registrado", Toast.LENGTH_SHORT).show();
         }else if(!password.equals(passwordConfirm)){
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
-        }else{
-            User user = new User(email, password);
-            con.beginTransaction();
-            con.copyToRealmOrUpdate(user);
-            con.commitTransaction();
-            startActivity(new Intent(this, MainActivity.class));
+        }else {
+            AppUser user = new AppUser(email, name, surname, birthday, isPlayer ? "Player" : "Coach");
+            MainActivity.app.getEmailPassword().registerUserAsync(email, password, res -> {
+                if(res.isSuccess()){
+                    con.beginTransaction();
+                    con.copyToRealmOrUpdate(user);
+                    con.commitTransaction();
+                    startActivity(new Intent(this, MainActivity.class));
+                }else{
+                    Toast.makeText(this, "Error al registrar el usuario: " + res.getError(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
