@@ -6,7 +6,17 @@ import io.realm.annotations.PrimaryKey;
 public class Team extends RealmObject {
 
     @PrimaryKey
+    private Long id;
+
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private String image;
 
@@ -14,7 +24,8 @@ public class Team extends RealmObject {
 
     public Team(){
     }
-    public Team(String name, String image, String city){
+    public Team(Long id, String name, String image, String city){
+        this.id = id;
         this.name = name;
         this.image = image;
         this.city = city;
