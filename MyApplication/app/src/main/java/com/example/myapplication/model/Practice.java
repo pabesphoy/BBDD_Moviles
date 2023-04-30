@@ -1,4 +1,4 @@
-package com.example.myapplication.bbdd.model;
+package com.example.myapplication.model;
 
 import java.time.LocalDateTime;
 
@@ -8,10 +8,19 @@ import io.realm.annotations.PrimaryKey;
 public class Practice extends RealmObject {
 
     @PrimaryKey
-    Long id;
-    String place;
+    private Long id;
+    private String place;
+    private String date;
+    private Team team;
 
-    String date;
+    public Practice() {}
+
+    public Practice(Long id, String place, String date, Team team) {
+        this.id = id;
+        this.place = place;
+        this.date = date;
+        this.team = team;
+    }
 
     public String getPlace() {
         return place;
@@ -36,6 +45,10 @@ public class Practice extends RealmObject {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public Team getTeam() {return team;}
+
+    public void setTeam(Team team) {this.team = team;}
 
     @Override
     public String toString() {

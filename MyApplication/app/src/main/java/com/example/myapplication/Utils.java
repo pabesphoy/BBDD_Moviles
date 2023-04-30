@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
-import com.example.myapplication.bbdd.model.AppUser;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.model.AppUser;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -20,5 +24,9 @@ public class Utils {
     public static AppUser userToAppUser(User user){
         Realm con = getRealm();
         return con.where(AppUser.class).equalTo("email", user.getProfile().getEmail()).findFirst();
+    }
+
+    public static void sendBubbleMessage(AppCompatActivity context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }

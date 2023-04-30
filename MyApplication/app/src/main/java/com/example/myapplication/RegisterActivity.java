@@ -3,17 +3,25 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.Toast;
-import com.example.myapplication.bbdd.model.AppUser;
+import com.example.myapplication.model.AppUser;
+import com.example.myapplication.model.Coach;
+import com.example.myapplication.model.Player;
+import com.example.myapplication.repositories.CoachRepository;
+import com.example.myapplication.repositories.PlayerRepository;
+
 import io.realm.Realm;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private Realm con;
+    private PlayerRepository playerRepository = new PlayerRepository();
+    private CoachRepository coachRepository = new CoachRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +65,20 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
         }else {
-            AppUser user = new AppUser(email, name, surname, birthday, isPlayer ? "Player" : "Coach");
+            AppUser user = new AppUser(email, name, surname, birthday);
             MainActivity.app.getEmailPassword().registerUserAsync(email, password, res -> {
                 if(res.isSuccess()){
                     con.beginTransaction();
                     con.copyToRealmOrUpdate(user);
                     con.commitTransaction();
+                    if(isPlayer)
+                        playerRepository.insertOrUpdate(new Player(user, null));
+                    else
+                        coachRepository.insertOrUpdate(new Coach(user));
                     startActivity(new Intent(this, MainActivity.class));
                 }else{
                     Toast.makeText(this, "Error al registrar el usuario: " + res.getError(), Toast.LENGTH_SHORT).show();
+                    Log.v("EXAMPLE", res.getError().toString());
                 }
             });
         }
