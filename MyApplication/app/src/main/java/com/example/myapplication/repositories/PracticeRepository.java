@@ -1,22 +1,86 @@
 package com.example.myapplication.repositories;
 
+import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Practice;
+import com.example.myapplication.model.Team;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import io.realm.Realm;
 
 public class PracticeRepository implements BaseRepository<Practice, Long> {
+
+    TeamRepository teamRepository = new TeamRepository();
     @Override
     public Collection<Practice> getAll() {
-        return realm.where(Practice.class).findAll().stream().collect(Collectors.toList());
+        return realm.where(Practice.class).findAll();
     }
 
     @Override
     public Practice getByPrimaryKey(Long key) {
         return realm.where(Practice.class).equalTo("id", key).findFirst();
+    }
+
+    public List<Practice> getAllPracticesByTeam(Team team){
+        return realm.where(Practice.class).equalTo("team.name", team.getName()).findAll();
+    }
+
+    public List<Practice> getFuturePracticesByTeam(Team team){
+        return realm.where(Practice.class)
+                .equalTo("team.name", team.getName())
+                .greaterThanOrEqualTo("date", new Date())
+                .findAll();
+    }
+
+    public List<Practice> getAllPracticesByPlayer(Player player) {
+        Set<Practice> resSet = new HashSet<>();
+        List<Team> playerTeams = new ArrayList<>(teamRepository.getByPlayerIsMember(player));
+        for(Team team: playerTeams){
+            resSet.addAll(getAllPracticesByTeam(team));
+        }
+        List<Practice> res = new ArrayList<>(resSet);
+        res.sort(Comparator.naturalOrder());
+        return res;
+    }
+
+    public List<Practice> getFuturePracticesByPlayer(Player player) {
+        Set<Practice> resSet = new HashSet<>();
+        List<Team> playerTeams = new ArrayList<>(teamRepository.getByPlayerIsMember(player));
+        for(Team team: playerTeams){
+            resSet.addAll(getFuturePracticesByTeam(team));
+        }
+        List<Practice> res = new ArrayList<>(resSet);
+        res.sort(Comparator.naturalOrder());
+        return res;
+    }
+
+    public List<Practice> getAllPracticesByCoach(Coach coach, Team teamFilter) {
+        Set<Practice> resSet = new HashSet<>();
+        List<Team> teams = (teamFilter == null) ? coach.getTeams() : List.of(teamFilter);
+        for(Team team : teams){
+            resSet.addAll(getAllPracticesByTeam(team));
+        }
+        List<Practice> res = new ArrayList<>(resSet);
+        res.sort(Comparator.naturalOrder());
+        return res;
+    }
+
+    public List<Practice> getFuturePracticesByCoach(Coach coach, Team teamFilter) {
+        Set<Practice> resSet = new HashSet<>();
+        List<Team> teams = (teamFilter == null) ? coach.getTeams() : List.of(teamFilter);
+        for(Team team : teams){
+            resSet.addAll(getFuturePracticesByTeam(team));
+        }
+        List<Practice> res = new ArrayList<>(resSet);
+        res.sort(Comparator.naturalOrder());
+        return res;
     }
 
     @Override
@@ -45,4 +109,6 @@ public class PracticeRepository implements BaseRepository<Practice, Long> {
         });
         return getByPrimaryKey(key) == null;
     }
+
+
 }

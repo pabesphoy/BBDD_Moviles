@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.Utils;
 import com.example.myapplication.model.enums.RequestStatus;
 
 import java.util.Date;
@@ -22,8 +23,9 @@ public class JoinRequest extends RealmObject {
 
     public JoinRequest() {}
 
-    public JoinRequest(Long id, Player player, Team team, Date requestDate) {
-        this.id = id;
+    public JoinRequest(Player player, Team team, Date requestDate) {
+        Number previousId = Utils.getRealm().where(JoinRequest.class).max("id");
+        this.id = (previousId == null) ? 1 : previousId.longValue()+1;
         this.player = player;
         this.team = team;
         this.requestDate = requestDate;

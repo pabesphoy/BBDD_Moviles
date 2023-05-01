@@ -1,22 +1,26 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.Utils;
+
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Practice extends RealmObject {
+public class Practice extends RealmObject implements Comparable<Practice>{
 
     @PrimaryKey
     private Long id;
     private String place;
-    private String date;
+    private Date date;
     private Team team;
 
     public Practice() {}
 
-    public Practice(Long id, String place, String date, Team team) {
-        this.id = id;
+    public Practice(String place, Date date, Team team) {
+        Number previousId = Utils.getRealm().where(Practice.class).max("id");
+        this.id = (previousId == null) ? 1 : previousId.longValue()+1;
         this.place = place;
         this.date = date;
         this.team = team;
@@ -38,11 +42,11 @@ public class Practice extends RealmObject {
         this.place = place;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -56,5 +60,10 @@ public class Practice extends RealmObject {
                 "place='" + place + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Practice o) {
+        return this.date.compareTo(o.getDate());
     }
 }

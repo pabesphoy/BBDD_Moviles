@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.Utils;
 import com.example.myapplication.model.enums.RequestStatus;
 import com.example.myapplication.model.enums.VolleyballPosition;
 
@@ -22,8 +23,9 @@ public class Membership extends RealmObject {
 
     public Membership(){}
 
-    public Membership(Long id, Player player, Team team, Integer number, VolleyballPosition position, boolean isCaptain) {
-        this.id = id;
+    public Membership(Player player, Team team, Integer number, VolleyballPosition position, boolean isCaptain) {
+        Number previousId = Utils.getRealm().where(Membership.class).max("id");
+        this.id = (previousId == null) ? 1 : previousId.longValue()+1;
         this.player = player;
         this.team = team;
         this.number = number;

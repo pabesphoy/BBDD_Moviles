@@ -19,6 +19,10 @@ public class MembershipRepository implements BaseRepository<Membership, Long> {
         return realm.where(Membership.class).equalTo("id", key).findFirst();
     }
 
+    public Collection<Membership> getByPlayer(Player player){
+        return realm.where(Membership.class).equalTo("player.id",player.getId()).findAll();
+    }
+
     @Override
     public boolean insertOrUpdate(Membership item) {
         realm.beginTransaction();

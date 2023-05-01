@@ -2,9 +2,13 @@ package com.example.myapplication.repositories;
 
 import com.example.myapplication.model.JoinRequest;
 import com.example.myapplication.model.Membership;
+import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import io.realm.Realm;
@@ -24,6 +28,16 @@ public class TeamRepository implements BaseRepository<Team, String> {
     @Override
     public Team getByPrimaryKey(String key) {
         return realm.where(Team.class).equalTo("name", key).findFirst();
+    }
+
+    public Collection<Team> getByPlayerIsMember(Player player) {
+        Collection<Team> teams = new HashSet<>();
+        Collection<Membership> memberships = membershipRepository.getByPlayer(player);
+        for(Membership membership : memberships){
+            teams.add(membership.getTeam());
+        }
+        return teams;
+
     }
 
     @Override
@@ -62,4 +76,6 @@ public class TeamRepository implements BaseRepository<Team, String> {
         });
         return getByPrimaryKey(key) == null;
     }
+
+
 }
