@@ -1,34 +1,38 @@
-package com.example.myapplication.bbdd.model;
+package com.example.myapplication.model;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 
 public class Team extends RealmObject {
 
     @PrimaryKey
-    private Long id;
-
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     private String image;
 
     private String city;
 
+    private Coach coach;
+
+    @LinkingObjects("team")
+    private final RealmResults<Practice> practices = null;
+
+    @LinkingObjects("team")
+    private final RealmResults<JoinRequest> joinRequests = null;
+
+    @LinkingObjects("team")
+    private final RealmResults<Membership> memberships = null;
+
     public Team(){
     }
-    public Team(Long id, String name, String image, String city){
-        this.id = id;
+    public Team(String name, String image, String city, Coach coach){
         this.name = name;
         this.image = image;
         this.city = city;
+        this.coach = coach;
     }
 
     public String getName() {
@@ -43,6 +47,8 @@ public class Team extends RealmObject {
         return city;
     }
 
+    public Coach getCoach(){return coach;}
+
     public void setName(String name) {
         this.name = name;
     }
@@ -54,6 +60,10 @@ public class Team extends RealmObject {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public void setCoach(Coach coach){this.coach = coach;}
+
+
 
     @Override
     public String toString() {

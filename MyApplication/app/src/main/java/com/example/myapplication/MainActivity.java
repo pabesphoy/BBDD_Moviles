@@ -9,17 +9,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.bbdd.model.AppUser;
+import com.example.myapplication.model.AppUser;
+import com.example.myapplication.model.Coach;
+import com.example.myapplication.model.Player;
+import com.example.myapplication.model.Team;
+import com.example.myapplication.repositories.PlayerRepository;
+import com.example.myapplication.repositories.TeamRepository;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.exceptions.RealmMigrationNeededException;
 import io.realm.mongodb.*;
 
 public class MainActivity extends AppCompatActivity {
     public String appId = "nishida-hsltg";
     public static App app;
+    private PlayerRepository playerRepository = new PlayerRepository();
+    private TeamRepository teamRepository = new TeamRepository();
 
 
     @Override
@@ -27,9 +36,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Realm.init(this);
-        app = new App(new AppConfiguration.Builder(appId).build());
+
+        app = new App(new AppConfiguration.Builder(appId)
+                .appName("Nishida")
+                .requestTimeout(30, TimeUnit.SECONDS)
+                .build());
         Realm con = Utils.getRealm();
-        sendBubbleMessage(""+ con.where(AppUser.class).count());
+        Utils.sendBubbleMessage(this, ""+ con.where(AppUser.class).count());
+
+
         //BOTÓN LOGIN
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     redirectToRegister();
                 }catch (Exception e){
-                    sendBubbleMessage(e.toString());
+                    Utils.sendBubbleMessage(MainActivity.this, e.toString());
                 }
             }
         });
@@ -59,14 +74,13 @@ public class MainActivity extends AppCompatActivity {
         TextView email = findViewById(R.id.email);
         TextView password = findViewById(R.id.password);
         Credentials emailPasswordCredentials = Credentials.emailPassword(email.getText().toString(), password.getText().toString());
-        AtomicReference<User> user = new AtomicReference<User>();
         app.loginAsync(emailPasswordCredentials, new App.Callback<User>() {
             @Override
             public void onResult(App.Result<User> result) {
                 if (result.isSuccess()){
                     redirectToHome();
                 }else{
-                    sendBubbleMessage("Login failed: " + result.getError());
+                    Utils.sendBubbleMessage(MainActivity.this, "Login failed: " + result.getError());
                 }
         }
     });
@@ -77,10 +91,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redirectToHome() {
-        sendBubbleMessage(Utils.userToAppUser(app.currentUser()).getName()); //Debe redirigir a pagina principal.
+        Player player = playerRepository.getByPrimaryKey(app.currentUser().getProfile().getEmail());
+        Utils.sendBubbleMessage(this, Utils.userToAppUser(app.currentUser()).getName()); //TODO: Debe redirigir a pagina principal.
     }
 
-    private void sendBubbleMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
+
 }

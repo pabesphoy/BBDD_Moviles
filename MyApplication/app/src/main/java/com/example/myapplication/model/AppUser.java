@@ -1,25 +1,18 @@
-package com.example.myapplication.bbdd.model;
+package com.example.myapplication.model;
+
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
-import io.realm.mongodb.User;
 
 public class AppUser extends RealmObject {
 
     @PrimaryKey
     private String email;
-
     private String name;
     private String surname;
     private String birthday;
 
-    @Required
-    private String type;
 
-    public String getType(){return type;};
-
-    public void setType(String type){this.type = type;}
 
     public String getEmail() {return email;}
 
@@ -51,16 +44,20 @@ public class AppUser extends RealmObject {
         this.birthday = birthday;
     }
 
+
+
+
     public AppUser(){
 
     }
-    public AppUser(String email, String name, String surname, String birthday, String type) {
+    public AppUser(String email, String name, String surname, String birthday) {
         this.email = email;
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
-        this.type = type;
     }
+
+
 
     @Override
     public String toString() {
@@ -69,7 +66,6 @@ public class AppUser extends RealmObject {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthday='" + birthday + '\'' +
-                ", type='" + type + '\'' +
                 '}';
     }
 }
