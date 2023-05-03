@@ -75,13 +75,15 @@ public class RegisterActivity extends AppCompatActivity {
                         playerRepository.insertOrUpdate(new Player(user, null));
                     else
                         coachRepository.insertOrUpdate(new Coach(user));
+                    this.finish();
                     startActivity(new Intent(this, MainActivity.class));
                 }else{
                     Toast.makeText(this, "Error al registrar el usuario: " + res.getError(), Toast.LENGTH_SHORT).show();
-                    Log.v("EXAMPLE", res.getError().toString());
+                    this.finish();
                 }
             });
         }
+
     }
 
 

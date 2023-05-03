@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if (result.isSuccess()){
                     redirectToHome();
                 }else{
-                    Utils.sendBubbleMessage(MainActivity.this, "Login failed: " + result.getError());
+                    Utils.sendBubbleMessage(MainActivity.this, "Login failed: " + result.getError().getMessage());
                 }
         }
     });
@@ -91,8 +91,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redirectToHome() {
-        Player player = playerRepository.getByPrimaryKey(app.currentUser().getProfile().getEmail());
-        Utils.sendBubbleMessage(this, Utils.userToAppUser(app.currentUser()).getName()); //TODO: Debe redirigir a pagina principal.
+        try {
+            startActivity(new Intent(this, HomeActivity.class));
+        }catch (Exception e){
+            Utils.sendBubbleMessage(this,e.getMessage().toString());
+        }
     }
 
 
