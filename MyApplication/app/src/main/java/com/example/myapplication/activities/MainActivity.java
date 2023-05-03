@@ -92,6 +92,4 @@ public class MainActivity extends AppCompatActivity {
             Utils.sendBubbleMessage(this,e.getMessage().toString());
         }
     }
-
-
 }

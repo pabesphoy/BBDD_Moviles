@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.bbdd.model.Team;
+import com.example.myapplication.model.Team;
 
 import io.realm.Realm;
 
@@ -77,7 +77,7 @@ public class CreateTeamActivity extends AppCompatActivity {
             nextId = id.intValue() + 1;
         }
 
-        team.setId(nextId);
+        //team.setId(nextId);
         team.setName(teamName);
         team.setImage(imageUrl);
         team.setCity(city);
