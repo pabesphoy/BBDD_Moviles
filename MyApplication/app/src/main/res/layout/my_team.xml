@@ -28,17 +28,25 @@
         android:id="@+id/imageView"
         android:layout_width="160dp"
         android:layout_height="159dp"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="118dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="109dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar perfil"
-        tools:layout_editor_absoluteX="273dp"
+        android:text="Editar equipo"
+        tools:layout_editor_absoluteX="262dp"
         tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir jugador"
+        tools:layout_editor_absoluteX="226dp"
+        tools:layout_editor_absoluteY="220dp" />
 
     <EditText
         android:id="@+id/editTextText2"
@@ -46,9 +54,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="316dp" />
+        android:text="Rochelambert"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="109dp" />
 
     <EditText
         android:id="@+id/editTextText5"
@@ -56,28 +64,29 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Surname"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="379dp" />
+        android:text="Sevilla"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="164dp" />
 
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Birthday"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="510dp" />
+    <LinearLayout
+        android:layout_width="412dp"
+        android:layout_height="419dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="312dp">
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Email"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="441dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jugador 1" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jugador 2" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
