@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,21 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.myapplication.R;
+import com.example.myapplication.Utils;
 import com.example.myapplication.model.AppUser;
-import com.example.myapplication.model.Coach;
-import com.example.myapplication.model.Player;
-import com.example.myapplication.model.Team;
 import com.example.myapplication.repositories.PlayerRepository;
 import com.example.myapplication.repositories.TeamRepository;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.exceptions.RealmMigrationNeededException;
 import io.realm.mongodb.*;
 
 public class MainActivity extends AppCompatActivity {
