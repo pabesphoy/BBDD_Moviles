@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         String name = ((TextView)findViewById(R.id.name)).getText().toString();
         String surname = ((TextView)findViewById(R.id.surname)).getText().toString();
-        String birthday = findViewById(R.id.birthday).toString();
+        String birthday = ((TextView)findViewById(R.id.birthday)).getText().toString();
         String email = ((TextView)findViewById(R.id.email)).getText().toString();
         String password = ((TextView)findViewById(R.id.password)).getText().toString();
         String passwordConfirm = ((TextView)findViewById(R.id.passwordConfirm)).getText().toString();

@@ -15,7 +15,7 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-public class TeamRepository implements BaseRepository<Team, String> {
+public class TeamRepository implements BaseRepository<Team, Long> {
 
     private JoinRequestRepository joinRequestRepository = new JoinRequestRepository();
     private MembershipRepository membershipRepository = new MembershipRepository();
@@ -26,8 +26,8 @@ public class TeamRepository implements BaseRepository<Team, String> {
     }
 
     @Override
-    public Team getByPrimaryKey(String key) {
-        return realm.where(Team.class).equalTo("name", key).findFirst();
+    public Team getByPrimaryKey(Long key) {
+        return realm.where(Team.class).equalTo("id", key).findFirst();
     }
 
     public Collection<Team> getByPlayerIsMember(Player player) {
@@ -46,7 +46,7 @@ public class TeamRepository implements BaseRepository<Team, String> {
             realm.beginTransaction();
             realm.insertOrUpdate(item);
             realm.commitTransaction();
-            return realm.where(Team.class).equalTo("name", item.getName()).findFirst() != null;
+            return realm.where(Team.class).equalTo("id", item.getId()).findFirst() != null;
         }catch (Exception e){
             return false;
         }
@@ -54,20 +54,20 @@ public class TeamRepository implements BaseRepository<Team, String> {
 
     @Override
     public boolean delete(Team item) {
-        return deleteByPrimaryKey(item.getName());
+        return deleteByPrimaryKey(item.getId());
     }
 
     @Override
-    public boolean deleteByPrimaryKey(String key) {
+    public boolean deleteByPrimaryKey(Long key) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 Team team = getByPrimaryKey(key);
                 if(team != null){
-                    for (Membership m: realm.where(Membership.class).equalTo("team.name", key).findAll()){
+                    for (Membership m: realm.where(Membership.class).equalTo("team.id", key).findAll()){
                         membershipRepository.delete(m);
                     }
-                    for (JoinRequest j: realm.where(JoinRequest.class).equalTo("team.name", key).findAll()){
+                    for (JoinRequest j: realm.where(JoinRequest.class).equalTo("team.id", key).findAll()){
                         joinRequestRepository.delete(j);
                     }
                     team.deleteFromRealm();

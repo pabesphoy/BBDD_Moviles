@@ -31,7 +31,7 @@
                 android:name=".activities.RegisterActivity"
                 android:exported="false" />
             <activity
-                android:name=".CreateTeamActivity"
+                android:name=".activities.CreateTeamActivity"
                 android:exported="false" />
             <activity
                 android:name=".activities.MainActivity"

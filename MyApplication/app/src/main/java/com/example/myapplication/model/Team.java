@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.Utils;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -9,6 +11,8 @@ import io.realm.annotations.PrimaryKey;
 public class Team extends RealmObject {
 
     @PrimaryKey
+    private Long id;
+
     private String name;
 
     private String image;
@@ -29,12 +33,17 @@ public class Team extends RealmObject {
     public Team(){
     }
     public Team(String name, String image, String city, Coach coach){
+        Number previousId = Utils.getRealm().where(Team.class).max("id");
+        this.id = (previousId == null) ? 1 : previousId.longValue()+1;
         this.name = name;
         this.image = image;
         this.city = city;
         this.coach = coach;
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }

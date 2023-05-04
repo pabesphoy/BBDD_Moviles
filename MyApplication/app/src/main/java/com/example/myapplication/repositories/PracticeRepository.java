@@ -29,12 +29,12 @@ public class PracticeRepository implements BaseRepository<Practice, Long> {
     }
 
     public List<Practice> getAllPracticesByTeam(Team team){
-        return realm.where(Practice.class).equalTo("team.name", team.getName()).findAll();
+        return realm.where(Practice.class).equalTo("team.id", team.getId()).findAll();
     }
 
     public List<Practice> getFuturePracticesByTeam(Team team){
         return realm.where(Practice.class)
-                .equalTo("team.name", team.getName())
+                .equalTo("team.id", team.getId())
                 .greaterThanOrEqualTo("date", new Date())
                 .findAll();
     }

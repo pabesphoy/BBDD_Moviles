@@ -27,7 +27,7 @@ public class JoinRequestRepository implements BaseRepository<JoinRequest, Long> 
     }
 
     public Collection<JoinRequest> getRequestsByTeam(Team team) {
-        return realm.where(JoinRequest.class).equalTo("team.name", team.getName()).findAll();
+        return realm.where(JoinRequest.class).equalTo("team.id", team.getId()).findAll();
     }
 
     @Override

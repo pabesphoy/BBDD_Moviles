@@ -27,7 +27,7 @@ public class Utils {
     static App app = MainActivity.app;
 
     public static Realm getRealm(){
-        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").build();
+        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").deleteRealmIfMigrationNeeded().build();
         return Realm.getInstance(config);
     }
 
@@ -47,11 +47,11 @@ public class Utils {
     }
 
     public static boolean isCurrentUserCoach(){
-        return userToPlayerOrCoach(getCurrentAppUser()).getClass() == Coach.class;
+        return getRealm().where(Coach.class).equalTo("user.email", Utils.getCurrentAppUser().getEmail()).findFirst() != null;
     }
 
     public static boolean isCurrentUserPlayer(){
-        return userToPlayerOrCoach(getCurrentAppUser()).getClass() == Player.class;
+        return getRealm().where(Player.class).equalTo("user.email", Utils.getCurrentAppUser().getEmail()).findFirst() != null;
     }
 
     public static void sendBubbleMessage(AppCompatActivity context, String message){

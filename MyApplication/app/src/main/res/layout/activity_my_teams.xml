@@ -6,7 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activities.MyTeamsActivity">
 
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="409dp"
+        android:layout_height="403dp"
+        android:layout_marginTop="149dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layoutTeamsResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+
     <LinearLayout
+        android:id="@+id/linearLayout9"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="639dp"
@@ -61,5 +78,39 @@
             android:layout_weight="0.6"
             android:text="Practices" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="My Teams"
+        android:textSize="60sp"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="409dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollView">
+
+        <Button
+            android:id="@+id/btnCreateTeam"
+            android:layout_width="407dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="Create Team"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

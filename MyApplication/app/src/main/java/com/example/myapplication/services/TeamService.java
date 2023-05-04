@@ -19,8 +19,8 @@ public class TeamService {
         return new ArrayList<>(repository.getAll());
     }
 
-    public Team getByName(String name){
-        return repository.getByPrimaryKey(name);
+    public Team getByName(Long id){
+        return repository.getByPrimaryKey(id);
     }
 
     public List<Team> getByCoach(Coach coach){
@@ -41,8 +41,8 @@ public class TeamService {
             Log.e("ERROR", "Error borrando team");
     }
 
-    public void deleteByName(String name){
-        if(!repository.deleteByPrimaryKey(name))
+    public void deleteByName(Long id){
+        if(!repository.deleteByPrimaryKey(id))
             Log.e("ERROR", "Error borrando team");
     }
 

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,7 +9,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
+import com.example.myapplication.Utils;
+import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Team;
+import com.example.myapplication.services.TeamService;
 
 import io.realm.Realm;
 
@@ -20,12 +24,14 @@ public class CreateTeamActivity extends AppCompatActivity {
 
     private String teamName, imageUrl, city;
 
+    private TeamService teamService = new TeamService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_team);
 
-        realm = Realm.getDefaultInstance();
+        realm = Utils.getRealm();
         teamNameEdt = findViewById(R.id.idEdtTeamName);
         imageUrlEdt = findViewById(R.id.idEdtImageUrl);
         cityEdt = findViewById(R.id.idEdtCity);
@@ -41,13 +47,13 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(teamName)) {
                     teamNameEdt.setError("Please enter Team Name");
-                }else if (TextUtils.isEmpty(imageUrl)) {
+                } else if (TextUtils.isEmpty(imageUrl)) {
                     imageUrlEdt.setError("Please enter a valid image url");
-                }else if (TextUtils.isEmpty(city)) {
+                } else if (TextUtils.isEmpty(city)) {
                     cityEdt.setError("Please enter Course Duration");
-                }else {
+                } else {
                     // calling method to add data to Realm database..
-                    addDataToDatabase(teamName, imageUrl, city);
+                    teamService.insertOrUpdate(new Team(teamName, imageUrl, city, (Coach)Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())));
                     Toast.makeText(CreateTeamActivity.this, "Team added to database..", Toast.LENGTH_SHORT).show();
                     teamNameEdt.setText("");
                     imageUrlEdt.setText("");
@@ -56,38 +62,4 @@ public class CreateTeamActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void addDataToDatabase(String teamName, String imageUrl, String city) {
-
-        Team team = new Team();
-
-        // on below line we are getting id for the team which we are storing.
-        Number id = realm.where(Team.class).max("id");
-
-        long nextId;
-
-        // validating if id is null or not.
-        if (id == null) {
-            // if id is null
-            // we are passing it as 1.
-            nextId = 1;
-        } else {
-            // if id is not null then
-            // we are incrementing it by 1
-            nextId = id.intValue() + 1;
-        }
-
-        //team.setId(nextId);
-        team.setName(teamName);
-        team.setImage(imageUrl);
-        team.setCity(city);
-
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealm(team);
-            }
-        });
-    }
-
 }
