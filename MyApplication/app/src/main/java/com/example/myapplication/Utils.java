@@ -27,7 +27,7 @@ public class Utils {
     static App app = MainActivity.app;
 
     public static Realm getRealm(){
-        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").deleteRealmIfMigrationNeeded().build();
+        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").build();
         return Realm.getInstance(config);
     }
 

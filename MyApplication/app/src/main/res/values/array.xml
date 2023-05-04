@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="spinnerItems">
+        <item>Middle</item>
+        <item>Opposite Hitter</item>
+        <item>Outside Hitter</item>
+        <item>Libero</item>
+        <item>Setter</item>
+        <item>Several</item>
+    </string-array>
+</resources>

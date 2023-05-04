@@ -30,7 +30,8 @@ public class MyTeamsActivity extends AppCompatActivity {
 
         LinearLayout layoutTeamsResult = findViewById(R.id.layoutTeamsResult);
         Button btnCreateTeam = findViewById(R.id.btnCreateTeam);
-        btnCreateTeam.setActivated(Utils.isCurrentUserCoach());
+        boolean isCoach = Utils.isCurrentUserCoach();
+        btnCreateTeam.setVisibility(isCoach ? View.VISIBLE : View.GONE);
 
         btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
