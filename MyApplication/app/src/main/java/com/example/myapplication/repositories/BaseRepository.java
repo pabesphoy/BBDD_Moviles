@@ -8,7 +8,7 @@ import io.realm.Realm;
 
 public interface BaseRepository<T, E> {
 
-    Realm realm = Utils.getRealm();
+    public Realm realm = Utils.getRealm();
 
     public Collection<T> getAll();
     public T getByPrimaryKey(E key);

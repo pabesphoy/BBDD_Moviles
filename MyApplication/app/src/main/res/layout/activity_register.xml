@@ -7,13 +7,13 @@
     tools:context=".activities.RegisterActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="419dp"
+        android:layout_width="410dp"
+        android:layout_height="729dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
-        tools:layout_editor_absoluteX="-1dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
             android:id="@+id/name"
@@ -33,19 +33,27 @@
             android:inputType="text"
             android:textAlignment="center" />
 
-        <EditText
+        <TextView
+            android:id="@+id/lblBirthdayEdit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Birthday"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/material_dynamic_neutral30"
+            android:textSize="18sp" />
+
+        <DatePicker
             android:id="@+id/birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Birthday"
-            android:inputType="date"
-            android:textAlignment="center" />
+            android:datePickerMode="spinner" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -54,7 +62,7 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
@@ -63,19 +71,26 @@
         <EditText
             android:id="@+id/passwordConfirm"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Confirm password"
             android:inputType="textPassword"
             android:textAlignment="center" />
 
+        <Spinner
+            android:id="@+id/preferredPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinnerItems" />
+
+
         <ToggleButton
             android:id="@+id/isPlayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tipo de usuario"
-            android:textOff="Soy entrenador"
-            android:textOn="Soy jugador" />
+            android:text="User type"
+            android:textOff="I'm a Coach"
+            android:textOn="I'm a Player" />
 
         <Button
             android:id="@+id/btnRegister"
