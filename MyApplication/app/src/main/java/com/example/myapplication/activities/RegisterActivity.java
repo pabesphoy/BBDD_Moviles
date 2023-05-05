@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -65,14 +66,17 @@ public class RegisterActivity extends AppCompatActivity {
     private void register() {
         String name = ((TextView)findViewById(R.id.name)).getText().toString();
         String surname = ((TextView)findViewById(R.id.surname)).getText().toString();
-        String birthday = ((TextView)findViewById(R.id.birthday)).getText().toString();
         String email = ((TextView)findViewById(R.id.email)).getText().toString();
         String password = ((TextView)findViewById(R.id.password)).getText().toString();
         String passwordConfirm = ((TextView)findViewById(R.id.passwordConfirm)).getText().toString();
         String preferredPosition = ((Spinner)findViewById(R.id.preferredPosition)).getSelectedItem().toString();
+
+        DatePicker birthday = findViewById(R.id.birthday);
+        String strBirthday = birthday.getDayOfMonth() + "/" + birthday.getMonth() + "/" + birthday.getYear();
+
         boolean isPlayer = ((ToggleButton)findViewById(R.id.isPlayer)).isChecked();
 
-        if(name.isBlank() || surname.isBlank() || birthday.isBlank() || email.isBlank() || password.isBlank() || passwordConfirm.isBlank()){
+        if(name.isBlank() || surname.isBlank() || email.isBlank() || password.isBlank() || passwordConfirm.isBlank()){
             Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }else if(con.where(AppUser.class).equalTo("email", email).count() > 0){
@@ -81,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
         }else {
-            AppUser user = new AppUser(email, name, surname, birthday);
+            AppUser user = new AppUser(email, name, surname, strBirthday);
             MainActivity.app.getEmailPassword().registerUserAsync(email, password, res -> {
                 try {
                     if(res.isSuccess()){

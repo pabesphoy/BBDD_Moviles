@@ -20,7 +20,6 @@ import io.realm.Realm;
 import io.realm.mongodb.*;
 
 public class MainActivity extends AppCompatActivity {
-    public String appId = "nishida-hsltg";
     public static App app;
     private PlayerRepository playerRepository = new PlayerRepository();
     private TeamRepository teamRepository = new TeamRepository();
@@ -32,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Realm.init(this);
 
-        app = new App(new AppConfiguration.Builder(appId)
-                .appName("Nishida")
-                .requestTimeout(30, TimeUnit.SECONDS)
-                .build());
+        app = Utils.app;
         Realm con = Utils.getRealm();
         Utils.sendBubbleMessage(this, ""+ con.where(AppUser.class).count());
 

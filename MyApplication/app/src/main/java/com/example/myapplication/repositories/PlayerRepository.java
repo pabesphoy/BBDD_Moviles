@@ -57,4 +57,10 @@ public class PlayerRepository implements BaseRepository<Player, String> {
         });
         return getByPrimaryKey(email) == null;
     }
+
+    public void edit(Player player, String newPos) {
+        realm.beginTransaction();
+        player.setPreferredPosition(newPos);
+        realm.commitTransaction();
+    }
 }

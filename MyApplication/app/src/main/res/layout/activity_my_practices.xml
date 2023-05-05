@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".activities.MyPracticesActivity">
 
+    <Button
+        android:id="@+id/btnCreatePractice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="248dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutTeamsResult"
+        android:layout_width="409dp"
+        android:layout_height="433dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="297dp"></LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

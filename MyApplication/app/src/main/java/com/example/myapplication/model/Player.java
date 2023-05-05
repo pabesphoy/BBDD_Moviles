@@ -40,16 +40,10 @@ public class Player extends RealmObject {
 
     public void setUser(AppUser user) {this.user = user;}
 
-    public VolleyballPosition getPreferredPosition(){
-        VolleyballPosition preferredPosition = null;
-        try {
-            preferredPosition = VolleyballPosition.valueOf(this.preferredPosition);
-        }catch (Exception e){
-            preferredPosition = VolleyballPosition.SEVERAL;
-        }
+    public String getPreferredPosition(){
         return preferredPosition;}
 
-    public void setPreferredPosition(VolleyballPosition preferredPosition) {this.preferredPosition = preferredPosition.getPosition();}
+    public void setPreferredPosition(String preferredPosition) {this.preferredPosition = preferredPosition;}
 
 
 

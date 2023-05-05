@@ -16,15 +16,21 @@ import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.activities.PracticesActivity;
 
+import java.util.concurrent.TimeUnit;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.User;
 
 public class Utils {
 
-    static App app = MainActivity.app;
+    public static App app = new App(new AppConfiguration.Builder("nishida-hsltg")
+            .appName("Nishida")
+            .requestTimeout(30, TimeUnit.SECONDS)
+            .build());
 
     public static Realm getRealm(){
         RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").build();
