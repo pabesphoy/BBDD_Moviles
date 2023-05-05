@@ -9,6 +9,7 @@ import com.example.myapplication.model.Team;
 import com.example.myapplication.repositories.PracticeRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PracticeService {
@@ -36,6 +37,10 @@ public class PracticeService {
     public void insertOrUpdate(Practice practice){
         if (!repository.insertOrUpdate(practice))
             Log.e("ERROR", "Error al insertar practica");
+    }
+
+    public boolean edit(String place, Date date, Practice item) {
+        return repository.edit(place, date, item);
     }
 
     public void delete(Practice practice){

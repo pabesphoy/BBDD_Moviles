@@ -1,5 +1,6 @@
 package com.example.myapplication.repositories;
 
+import com.example.myapplication.model.AppUser;
 import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Practice;
@@ -91,6 +92,13 @@ public class PracticeRepository implements BaseRepository<Practice, Long> {
         return getByPrimaryKey(item.getId()) != null;
     }
 
+    public boolean edit(String place,Date date, Practice item) {
+        realm.beginTransaction();
+        item.setPlace(place);
+        item.setDate(date);
+        realm.commitTransaction();
+        return getByPrimaryKey(item.getId()).getPlace().equals(place);
+    }
     @Override
     public boolean delete(Practice item) {
         return deleteByPrimaryKey(item.getId());

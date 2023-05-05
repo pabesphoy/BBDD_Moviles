@@ -57,7 +57,9 @@ public class PracticesActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Utils.sendBubbleMessage(PracticesActivity.this, button.getTag().toString());
-                    //TODO: Ir a details de Practice
+                    Intent intent = new Intent(PracticesActivity.this, PracticeDetailsActivity.class);
+                    intent.putExtra("id",practice.getId());
+                    startActivity(intent);
                 }
             });
             layoutPracticesResult.addView(button);

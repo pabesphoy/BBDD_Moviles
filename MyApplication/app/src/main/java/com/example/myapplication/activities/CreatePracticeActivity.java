@@ -62,11 +62,10 @@ public class CreatePracticeActivity extends AppCompatActivity {
                     placeEdt.setError("Please enter a place for the practice");
                 } else {
                     // calling method to add data to Realm database..
-                    Team teamsito = teamService.getByName(team);
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     Practice p = null;
                     try {
-                        p = new Practice(place, formatter.parse(date),teamsito);
+                        p = new Practice(place, formatter.parse(date),teamService.getByName(team));
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
