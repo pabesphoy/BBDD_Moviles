@@ -19,10 +19,11 @@ public class TeamService {
         return new ArrayList<>(repository.getAll());
     }
 
-    public Team getByName(Long id){
+    public Team getById(Long id){
         return repository.getByPrimaryKey(id);
     }
 
+    public Team getByName(String name) { return repository.getByName(name); }
     public List<Team> getByCoach(Coach coach){
         return coach.getTeams();
     }

@@ -30,6 +30,10 @@ public class TeamRepository implements BaseRepository<Team, Long> {
         return realm.where(Team.class).equalTo("id", key).findFirst();
     }
 
+    public Team getByName(String name){
+        return realm.where(Team.class).equalTo("name",name).findFirst();
+    }
+
     public Collection<Team> getByPlayerIsMember(Player player) {
         Collection<Team> teams = new HashSet<>();
         Collection<Membership> memberships = membershipRepository.getByPlayer(player);

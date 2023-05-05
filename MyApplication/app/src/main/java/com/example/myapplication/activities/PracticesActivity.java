@@ -31,7 +31,7 @@ public class PracticesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_practices);
         Utils.setFooterOnClickListeners(this);
 
-        LinearLayout layoutPracticesResult = findViewById(R.id.layoutTeamsResult);
+        LinearLayout layoutPracticesResult = findViewById(R.id.layoutPracticesResult);
         Button btnCreatePractice = findViewById(R.id.btnCreatePractice);
         btnCreatePractice.setActivated(Utils.isCurrentUserCoach());
 
