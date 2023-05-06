@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TeamDetailsActivity">
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="637dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/lblName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lblCoach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coach:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCoach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lblCoach4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coach:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCoach3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/lblCoach5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coach:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCoach4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="639dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnProfile"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Profile" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Search" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="687dp"
+        android:layout_marginEnd="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnMyTeams"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="My Teams" />
+
+        <Button
+            android:id="@+id/btnPractices"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Practices" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

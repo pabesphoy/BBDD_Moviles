@@ -3,6 +3,8 @@ package com.example.myapplication.services;
 import android.util.Log;
 
 import com.example.myapplication.model.Membership;
+import com.example.myapplication.model.Player;
+import com.example.myapplication.model.Team;
 import com.example.myapplication.repositories.MembershipRepository;
 
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class MembershipService {
     public Membership getById(Long id){
         return repository.getByPrimaryKey(id);
     }
+
+    public List<Membership> getByPlayer(Player player){return new ArrayList<>(repository.getByPlayer(player));}
+
+    public List<Membership> getByTeam(Team team){return new ArrayList<>(repository.getByTeam(team));}
 
     public void insertOrDelete(Membership membership){
         if(!repository.insertOrUpdate(membership))

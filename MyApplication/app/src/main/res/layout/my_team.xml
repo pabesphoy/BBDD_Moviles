@@ -13,79 +13,137 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="-2dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="54dp"
-        android:layout_height="31dp"
-        android:text="Nishida"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="160dp"
         android:layout_height="159dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="109dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="109dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnEditTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar equipo"
-        tools:layout_editor_absoluteX="262dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="262dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Edit Team"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnAddPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir jugador"
-        tools:layout_editor_absoluteX="226dp"
-        tools:layout_editor_absoluteY="220dp" />
+        android:layout_marginStart="226dp"
+        android:layout_marginTop="220dp"
+        android:text="Add Player"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/txtTeamName"
+        android:layout_width="226dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Rochelambert"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="109dp" />
+        android:text="Nombre"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/txtTeamCity"
+        android:layout_width="229dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="160dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Sevilla"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="164dp" />
+        android:text="Ciudad"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="410dp"
+        android:layout_height="302dp"
+        android:layout_marginTop="304dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPlayers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <LinearLayout
-        android:layout_width="412dp"
-        android:layout_height="419dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="312dp">
+        android:layout_width="409dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="687dp"
+        android:layout_marginEnd="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnMyTeams"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:text="Jugador 1" />
+            android:layout_weight="0.6"
+            android:text="My Teams" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnPractices"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:text="Jugador 2" />
+            android:layout_weight="0.6"
+            android:text="Practices" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="639dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnProfile"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Profile" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Search"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 

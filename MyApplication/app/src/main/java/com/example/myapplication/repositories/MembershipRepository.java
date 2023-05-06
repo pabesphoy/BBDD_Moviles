@@ -3,6 +3,7 @@ package com.example.myapplication.repositories;
 import com.example.myapplication.model.JoinRequest;
 import com.example.myapplication.model.Membership;
 import com.example.myapplication.model.Player;
+import com.example.myapplication.model.Team;
 
 import java.util.Collection;
 
@@ -21,6 +22,10 @@ public class MembershipRepository implements BaseRepository<Membership, Long> {
 
     public Collection<Membership> getByPlayer(Player player){
         return realm.where(Membership.class).equalTo("player.id",player.getId()).findAll();
+    }
+
+    public Collection<Membership> getByTeam(Team team){
+        return realm.where(Membership.class).equalTo("team.id",team.getId()).findAll();
     }
 
     @Override

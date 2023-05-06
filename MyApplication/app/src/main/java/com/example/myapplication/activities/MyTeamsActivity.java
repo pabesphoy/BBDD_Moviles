@@ -54,8 +54,10 @@ public class MyTeamsActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Utils.sendBubbleMessage(MyTeamsActivity.this, button.getTag().toString());
-                    //TODO: Ir a details de team
+                    Intent intent = new Intent(MyTeamsActivity.this, TeamDetailsActivity.class);
+                    Long id = Long.valueOf((long)team.getId());
+                    intent.putExtra("id", id);
+                    startActivity(intent);
                 }
             });
             layoutTeamsResult.addView(button);
