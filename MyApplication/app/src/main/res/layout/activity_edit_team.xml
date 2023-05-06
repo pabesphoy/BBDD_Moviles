@@ -6,4 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".activities.EditTeamActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="40dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:text="Name:" />
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textAlignment="center"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/lblImage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:text="Image Url:" />
+
+        <EditText
+            android:id="@+id/idEdtImageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textAlignment="center"
+            android:text="url" />
+
+
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Edit" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

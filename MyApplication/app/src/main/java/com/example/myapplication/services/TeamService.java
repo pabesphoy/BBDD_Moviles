@@ -4,10 +4,12 @@ import android.util.Log;
 
 import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Player;
+import com.example.myapplication.model.Practice;
 import com.example.myapplication.model.Team;
 import com.example.myapplication.repositories.TeamRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,10 @@ public class TeamService {
     public void insertOrUpdate(Team team){
         if(!repository.insertOrUpdate(team))
             Log.e("ERROR", "Error insertando team");
+    }
+
+    public boolean edit(String name,String imageUrl, Team item) {
+        return repository.edit(name, imageUrl, item);
     }
 
     public void delete(Team team){

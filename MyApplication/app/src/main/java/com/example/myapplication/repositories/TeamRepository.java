@@ -56,6 +56,14 @@ public class TeamRepository implements BaseRepository<Team, Long> {
         }
     }
 
+    public boolean edit(String name, String imageUrl, Team item){
+        realm.beginTransaction();
+        item.setName(name);
+        item.setImage(imageUrl);
+        realm.commitTransaction();
+        return getByPrimaryKey(item.getId()).getCity().equals(name);
+    }
+
     @Override
     public boolean delete(Team item) {
         return deleteByPrimaryKey(item.getId());

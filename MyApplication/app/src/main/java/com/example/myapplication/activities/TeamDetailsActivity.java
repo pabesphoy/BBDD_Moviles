@@ -2,6 +2,7 @@ package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +45,9 @@ public class TeamDetailsActivity extends AppCompatActivity {
                     //TODO: Ir a actividad de añadir jugador
                 }});
                 btnEditTeam.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
-                    //TODO: Ir a actividad de editar equipo
+                    Intent intent = new Intent(TeamDetailsActivity.this, EditTeamActivity.class);
+                    intent.putExtra("id",team.getId());
+                    startActivity(intent);
                 }});
             }else{
                 hideButtons();
