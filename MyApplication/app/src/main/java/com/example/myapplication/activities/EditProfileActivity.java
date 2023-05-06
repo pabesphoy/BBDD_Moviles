@@ -44,7 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
         nameEdit.setText(currentUser.getName(), TextView.BufferType.EDITABLE);
         surnameEdit.setText(currentUser.getSurname(), TextView.BufferType.EDITABLE);
         String[] splittedBirthday = currentUser.getBirthday().split("/");
-        birthday.updateDate(Integer.parseInt(splittedBirthday[2]), Integer.parseInt(splittedBirthday[1]),Integer.parseInt(splittedBirthday[0]));
+        birthday.updateDate(Integer.parseInt(splittedBirthday[2]) , Integer.parseInt(splittedBirthday[1]) - 1, Integer.parseInt(splittedBirthday[0]));
 
         if (Utils.isCurrentUserPlayer()){
             currentPlayer = (Player) Utils.userToPlayerOrCoach(currentUser);
@@ -64,7 +64,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
 
             appUserRepository.edit(nameEdit.getText().toString(), surnameEdit.getText().toString(),
-                    birthday.getDayOfMonth() + "/" + birthday.getMonth() + "/" + birthday.getYear(), currentUser);
+                    birthday.getDayOfMonth() + "/" + (birthday.getMonth() + 1) + "/" + birthday.getYear(), currentUser);
 
             if(Utils.isCurrentUserPlayer()){
                 playerService.editPosition(currentPlayer, ((Spinner)findViewById(R.id.preferredPositionEdit)).getSelectedItem().toString());

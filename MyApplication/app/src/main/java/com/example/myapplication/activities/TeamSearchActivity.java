@@ -52,8 +52,5 @@ public class TeamSearchActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 }

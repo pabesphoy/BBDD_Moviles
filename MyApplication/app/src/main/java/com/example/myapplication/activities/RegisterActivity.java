@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         String preferredPosition = ((Spinner)findViewById(R.id.preferredPosition)).getSelectedItem().toString();
 
         DatePicker birthday = findViewById(R.id.birthday);
-        String strBirthday = birthday.getDayOfMonth() + "/" + birthday.getMonth() + "/" + birthday.getYear();
+        String strBirthday = birthday.getDayOfMonth() + "/" + (birthday.getMonth() +1) + "/" + birthday.getYear();
 
         boolean isPlayer = ((ToggleButton)findViewById(R.id.isPlayer)).isChecked();
 
