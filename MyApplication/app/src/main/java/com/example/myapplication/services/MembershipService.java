@@ -26,6 +26,10 @@ public class MembershipService {
 
     public List<Membership> getByTeam(Team team){return new ArrayList<>(repository.getByTeam(team));}
 
+    public boolean getPlayerInTeam(Player player, Team team){
+        return repository.getPlayerInTeam(player, team);
+    }
+
     public void insertOrUpdate(Membership membership){
         if(!repository.insertOrUpdate(membership))
             Log.e("ERROR","Error insertando membresía");

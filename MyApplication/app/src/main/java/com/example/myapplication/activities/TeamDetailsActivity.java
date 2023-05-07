@@ -65,12 +65,18 @@ public class TeamDetailsActivity extends AppCompatActivity {
                 hideButtons();
             }
         }else{
-            btnJoinRequest.setActivated(true);
-            btnJoinRequest.setVisibility(View.VISIBLE);
+            Player player = (Player) Utils.userToPlayerOrCoach(Utils.getCurrentAppUser());
+            btnJoinRequest.setActivated(!joinRequestService.getHasPlayerPendingRequestForTeam(player, team)
+                                        && !membershipService.getPlayerInTeam(player, team));
+            btnJoinRequest.setVisibility(!joinRequestService.getHasPlayerPendingRequestForTeam((Player) Utils.userToPlayerOrCoach(Utils.getCurrentAppUser()), team) && !membershipService.getPlayerInTeam(player, team)
+                                            ? View.VISIBLE : View.GONE);
             btnJoinRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     joinRequestService.requestJoinTeam((Player)(Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())),team);
+                    btnJoinRequest.setVisibility(View.GONE);
+                    btnJoinRequest.setActivated(false);
+                    Utils.sendBubbleMessage(TeamDetailsActivity.this, "¡Request enviada!");
                 }
             });
             hideButtons();

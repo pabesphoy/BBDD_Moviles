@@ -3,6 +3,7 @@ package com.example.myapplication.repositories;
 import com.example.myapplication.model.JoinRequest;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
+import com.example.myapplication.model.enums.RequestStatus;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +34,12 @@ public class JoinRequestRepository implements BaseRepository<JoinRequest, Long> 
     public Collection<JoinRequest> getPendingRequestsByTeam(Team team) {
         return realm.where(JoinRequest.class).equalTo("team.id", team.getId()).equalTo("status","Pending").findAll();
     }
+
+    public boolean getHasPlayerPendingRequestForTeam(Player player, Team team) {
+        return realm.where(JoinRequest.class).equalTo("team.id", team.getId())
+                                                .equalTo("player.user.email", player.getUser().getEmail())
+                                                .equalTo("status","Pending").count() > 0;
+    }
     @Override
     public boolean insertOrUpdate(JoinRequest item) {
         realm.beginTransaction();
@@ -60,5 +67,18 @@ public class JoinRequestRepository implements BaseRepository<JoinRequest, Long> 
         return getByPrimaryKey(key) == null;
     }
 
+
+    public void acceptJoinRequest(JoinRequest request) {
+        realm.beginTransaction();
+        request.setStatus(RequestStatus.ACCEPTED);
+        realm.copyToRealmOrUpdate(request);
+        realm.commitTransaction();
+    }
+    public void denyJoinRequest(JoinRequest request) {
+        realm.beginTransaction();
+        request.setStatus(RequestStatus.ACCEPTED);
+        realm.copyToRealmOrUpdate(request);
+        realm.commitTransaction();
+    }
 
 }

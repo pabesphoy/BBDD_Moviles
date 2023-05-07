@@ -6,8 +6,10 @@ import com.example.myapplication.model.enums.RequestStatus;
 import java.util.Date;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class JoinRequest extends RealmObject {
+    @PrimaryKey
 
     private Long id;
 

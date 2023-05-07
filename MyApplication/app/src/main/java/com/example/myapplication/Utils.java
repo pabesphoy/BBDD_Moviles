@@ -33,7 +33,7 @@ public class Utils {
             .build());
 
     public static Realm getRealm(){
-        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").build();
+        RealmConfiguration config = new RealmConfiguration.Builder().name("Nishida").deleteRealmIfMigrationNeeded().build();
         return Realm.getInstance(config);
     }
 

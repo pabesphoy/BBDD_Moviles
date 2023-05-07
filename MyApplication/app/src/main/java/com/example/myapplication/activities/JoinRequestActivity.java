@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.Utils;
@@ -40,18 +41,31 @@ public class JoinRequestActivity extends AppCompatActivity {
         Team team = teamService.getById(getIntent().getLongExtra("id", 1));
         joinRequests = joinRequestService.getPendingRequestsByTeam(team);
         for(JoinRequest request : joinRequests){
-            Button button = new Button(JoinRequestActivity.this);
-            button.setTag("btnJoinRequestId=" + request.getId());
-            button.setText(request.getPlayer().getUser().getName() + " , " + request.getPlayer().getUser().getSurname());
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(JoinRequestActivity.this, AcceptOrDenyActivity.class);
-                    intent.putExtra("id", request.getId());
+            LinearLayout layoutRequest = new LinearLayout(this);
+            TextView textViewPlayer = new TextView(this);
+            textViewPlayer.setText(request.getPlayer().getUser().fullName());
+            Button buttonAccpt = new Button(this);
+            buttonAccpt.setText("Accept");
+            buttonAccpt.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
+                    joinRequestService.acceptJoinRequest(request);
+                    Intent intent = new Intent(JoinRequestActivity.this, TeamDetailsActivity.class);
+                    intent.putExtra("id", request.getTeam().getId());
                     startActivity(intent);
                 }
             });
-            layoutRequests.addView(button);
+            Button buttonDeny = new Button(this);
+            buttonDeny.setText("Deny");
+            buttonDeny.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
+                joinRequestService.denyJoinRequest(request);
+                Intent intent = new Intent(JoinRequestActivity.this, TeamDetailsActivity.class);
+                intent.putExtra("id", request.getTeam().getId());
+                startActivity(intent);
+            }
+            });
+            layoutRequest.addView(textViewPlayer);
+            layoutRequest.addView(buttonAccpt);
+            layoutRequest.addView(buttonDeny);
+            layoutRequests.addView(layoutRequest);
         }
 
     }

@@ -28,6 +28,12 @@ public class MembershipRepository implements BaseRepository<Membership, Long> {
         return realm.where(Membership.class).equalTo("team.id",team.getId()).findAll();
     }
 
+    public boolean getPlayerInTeam(Player player, Team team) {
+        return realm.where(Membership.class).equalTo("player.id",player.getId())
+                                    .equalTo("team.id", team.getId())
+                                    .count() > 0;
+    }
+
     @Override
     public boolean insertOrUpdate(Membership item) {
         realm.beginTransaction();
@@ -54,4 +60,6 @@ public class MembershipRepository implements BaseRepository<Membership, Long> {
         });
         return getByPrimaryKey(key) == null;
     }
+
+
 }

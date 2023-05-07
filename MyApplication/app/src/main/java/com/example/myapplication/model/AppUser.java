@@ -68,4 +68,8 @@ public class AppUser extends RealmObject {
                 ", birthday='" + birthday + '\'' +
                 '}';
     }
+
+    public String fullName() {
+        return name + " " + surname;
+    }
 }

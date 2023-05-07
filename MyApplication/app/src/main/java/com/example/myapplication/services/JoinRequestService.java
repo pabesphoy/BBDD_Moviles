@@ -4,9 +4,11 @@ import android.graphics.Paint;
 import android.util.Log;
 
 import com.example.myapplication.model.JoinRequest;
+import com.example.myapplication.model.Membership;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
 import com.example.myapplication.model.enums.RequestStatus;
+import com.example.myapplication.model.enums.VolleyballPosition;
 import com.example.myapplication.repositories.JoinRequestRepository;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 public class JoinRequestService {
 
     JoinRequestRepository repository = new JoinRequestRepository();
+    MembershipService membershipService = new MembershipService();
 
     public List<JoinRequest> getAll(){
         return new ArrayList<>(repository.getAll());
@@ -37,6 +40,10 @@ public class JoinRequestService {
         return new ArrayList<>(repository.getPendingRequestsByTeam(team));
     }
 
+    public boolean getHasPlayerPendingRequestForTeam(Player player, Team team){
+        return repository.getHasPlayerPendingRequestForTeam(player, team);
+    }
+
     public void insertOrUpdate(JoinRequest request){
         if(!repository.insertOrUpdate(request))
             Log.e("ERROR", "Error al insertar request");
@@ -48,13 +55,13 @@ public class JoinRequestService {
     }
 
     public void acceptJoinRequest(JoinRequest request){
-        request.setStatus(RequestStatus.ACCEPTED);
-        insertOrUpdate(request);
+        repository.acceptJoinRequest(request);
+        membershipService.insertOrUpdate(new Membership(request.getPlayer(), request.getTeam(), 0, VolleyballPosition.toVolleyballPosition(request.getPlayer().getPreferredPosition()), false));
+
     }
 
     public void denyJoinRequest(JoinRequest request){
-        request.setStatus(RequestStatus.DENIED);
-        insertOrUpdate(request);
+        repository.denyJoinRequest(request);
     }
 
     public void deleteRequest(JoinRequest request){
