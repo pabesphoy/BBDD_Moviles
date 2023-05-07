@@ -1,5 +1,6 @@
 package com.example.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -30,6 +31,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_team);
+        Utils.setFooterOnClickListeners(this);
 
         realm = Utils.getRealm();
         teamNameEdt = findViewById(R.id.idEdtTeamName);
@@ -55,9 +57,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                     // calling method to add data to Realm database..
                     teamService.insertOrUpdate(new Team(teamName, imageUrl, city, (Coach)Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())));
                     Toast.makeText(CreateTeamActivity.this, "Team added to database..", Toast.LENGTH_SHORT).show();
-                    teamNameEdt.setText("");
-                    imageUrlEdt.setText("");
-                    cityEdt.setText("");
+                    startActivity(new Intent(CreateTeamActivity.this, MyTeamsActivity.class));
                 }
             }
         });

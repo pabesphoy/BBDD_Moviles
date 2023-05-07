@@ -61,7 +61,7 @@ public class TeamDetailsActivity extends AppCompatActivity {
 
         for(Membership membership : membershipService.getByTeam(team)){
             TextView teamLine = new TextView(this);
-            teamLine.setText("#" + membership.getNumber() + ": " + membership.getPlayer() + " - " + membership.getPosition().getPosition());
+            teamLine.setText("#" + membership.getNumber() + ": " + membership.getPlayer().getUser().getName() + " " + membership.getPlayer().getUser().getSurname() + " - " + membership.getPosition());
             linearLayoutPlayers.addView(teamLine);
         }
     }

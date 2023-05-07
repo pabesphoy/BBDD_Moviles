@@ -65,13 +65,7 @@ public class Membership extends RealmObject {
         this.number = number;
     }
 
-    public VolleyballPosition getPosition() {
-        VolleyballPosition position = null;
-        try {
-            position = VolleyballPosition.valueOf(this.position);
-        }catch (Exception e){
-            position = VolleyballPosition.SEVERAL;
-        }
+    public String getPosition() {
         return position;
     }
 

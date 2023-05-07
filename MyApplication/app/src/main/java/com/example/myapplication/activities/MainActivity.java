@@ -11,10 +11,11 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils;
 import com.example.myapplication.model.AppUser;
+import com.example.myapplication.model.Membership;
+import com.example.myapplication.model.enums.VolleyballPosition;
 import com.example.myapplication.repositories.PlayerRepository;
-import com.example.myapplication.repositories.TeamRepository;
-
-import java.util.concurrent.TimeUnit;
+import com.example.myapplication.services.MembershipService;
+import com.example.myapplication.services.TeamService;
 
 import io.realm.Realm;
 import io.realm.mongodb.*;
@@ -22,7 +23,8 @@ import io.realm.mongodb.*;
 public class MainActivity extends AppCompatActivity {
     public static App app;
     private PlayerRepository playerRepository = new PlayerRepository();
-    private TeamRepository teamRepository = new TeamRepository();
+    private TeamService teamService = new TeamService();
+    private MembershipService membershipService = new MembershipService();
 
 
     @Override

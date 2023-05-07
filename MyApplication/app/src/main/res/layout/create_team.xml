@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="20dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout11"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <EditText
         android:id="@+id/idEdtTeamName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Team Name"/>
+        android:layout_width="410dp"
+        android:layout_height="62dp"
+        android:hint="Team Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
         android:id="@+id/idEdtImageUrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Image Url"/>
+        android:layout_width="409dp"
+        android:layout_height="59dp"
+        android:hint="Image Url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtTeamName" />
 
 
     <EditText
         android:id="@+id/idEdtCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="City"/>
-
+        android:layout_width="411dp"
+        android:layout_height="68dp"
+        android:hint="City"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtImageUrl" />
 
     <Button
         android:id="@+id/idBtnCreateTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create team"
-        android:layout_gravity="center"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtCity" />
 
     <LinearLayout
-        android:id="@+id/linearLayout7"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="639dp"
@@ -91,4 +99,5 @@
             android:text="Practices" />
     </LinearLayout>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
