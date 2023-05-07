@@ -30,6 +30,9 @@ public class JoinRequestRepository implements BaseRepository<JoinRequest, Long> 
         return realm.where(JoinRequest.class).equalTo("team.id", team.getId()).findAll();
     }
 
+    public Collection<JoinRequest> getPendingRequestsByTeam(Team team) {
+        return realm.where(JoinRequest.class).equalTo("team.id", team.getId()).equalTo("status","PENDING").findAll();
+    }
     @Override
     public boolean insertOrUpdate(JoinRequest item) {
         realm.beginTransaction();

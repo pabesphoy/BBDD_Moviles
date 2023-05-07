@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils;
 import com.example.myapplication.model.Coach;
+import com.example.myapplication.model.JoinRequest;
 import com.example.myapplication.model.Membership;
+import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
+import com.example.myapplication.services.JoinRequestService;
 import com.example.myapplication.services.MembershipService;
 import com.example.myapplication.services.TeamService;
 
@@ -23,7 +26,11 @@ public class TeamDetailsActivity extends AppCompatActivity {
 
     private Team team;
 
+    private JoinRequest joinRequest;
+
     TeamService teamService = new TeamService();
+
+    JoinRequestService joinRequestService = new JoinRequestService();
     MembershipService membershipService = new MembershipService();
 
     @Override
@@ -35,14 +42,19 @@ public class TeamDetailsActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.txtTeamName)).setText(team.getName());
         ((TextView)findViewById(R.id.txtTeamCity)).setText(team.getCity());
-        ((ImageView)findViewById(R.id.imageView)).setImageURI(Uri.parse(team.getImage()));
+        //((ImageView)findViewById(R.id.imageView)).setImageURI(Uri.parse(team.getImage()));
         Button btnAddPlayer = (Button) findViewById(R.id.btnAddPlayer);
         Button btnEditTeam = (Button) findViewById(R.id.btnEditTeam);
+        Button btnJoinRequest = (Button) findViewById(R.id.btnJoinRequest);
 
         if(Utils.isCurrentUserCoach()){
+            btnJoinRequest.setActivated(false);
+            btnJoinRequest.setVisibility(View.GONE);
             if(((Coach) Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())).equals(team.getCoach())){
                 btnAddPlayer.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
-                    //TODO: Ir a actividad de añadir jugador
+                    Intent intent = new Intent(TeamDetailsActivity.this, JoinRequestActivity.class);
+                    intent.putExtra("id",team.getId());
+                    startActivity(intent);
                 }});
                 btnEditTeam.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
                     Intent intent = new Intent(TeamDetailsActivity.this, EditTeamActivity.class);
@@ -53,6 +65,14 @@ public class TeamDetailsActivity extends AppCompatActivity {
                 hideButtons();
             }
         }else{
+            btnJoinRequest.setActivated(true);
+            btnJoinRequest.setVisibility(View.VISIBLE);
+            btnJoinRequest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    joinRequestService.requestJoinTeam((Player)(Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())),team);
+                }
+            });
             hideButtons();
         }
 

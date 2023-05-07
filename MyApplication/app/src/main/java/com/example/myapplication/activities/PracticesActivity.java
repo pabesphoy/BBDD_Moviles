@@ -35,6 +35,9 @@ public class PracticesActivity extends AppCompatActivity {
         Button btnCreatePractice = findViewById(R.id.btnCreatePractice);
         btnCreatePractice.setActivated(Utils.isCurrentUserCoach());
 
+        boolean isCoach = Utils.isCurrentUserCoach();
+        btnCreatePractice.setVisibility(isCoach ? View.VISIBLE : View.GONE);
+
         btnCreatePractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

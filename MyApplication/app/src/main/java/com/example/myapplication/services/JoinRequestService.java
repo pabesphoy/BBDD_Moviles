@@ -33,6 +33,10 @@ public class JoinRequestService {
         return new ArrayList<>(repository.getRequestsByTeam(team));
     }
 
+    public List<JoinRequest> getPendingRequestsByTeam(Team team){
+        return new ArrayList<>(repository.getPendingRequestsByTeam(team));
+    }
+
     public void insertOrUpdate(JoinRequest request){
         if(!repository.insertOrUpdate(request))
             Log.e("ERROR", "Error al insertar request");
