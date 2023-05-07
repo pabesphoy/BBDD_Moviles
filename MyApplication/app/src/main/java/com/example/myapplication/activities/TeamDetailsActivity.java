@@ -86,9 +86,29 @@ public class TeamDetailsActivity extends AppCompatActivity {
         LinearLayout linearLayoutPlayers = findViewById(R.id.linearLayoutPlayers);
 
         for(Membership membership : membershipService.getByTeam(team)){
+            LinearLayout linearLayoutPlayer = new LinearLayout(this);
+
             TextView teamLine = new TextView(this);
-            teamLine.setText("#" + membership.getNumber() + ": " + membership.getPlayer().getUser().getName() + " " + membership.getPlayer().getUser().getSurname() + " - " + membership.getPosition());
-            linearLayoutPlayers.addView(teamLine);
+            String isCaptain = membership.isCaptain() ? " - CAPITÁN" : "";
+            teamLine.setText("#" + membership.getNumber() + ": " + membership.getPlayer().getUser().getName() + " " + membership.getPlayer().getUser().getSurname() + " - " + membership.getPosition() + isCaptain);
+            linearLayoutPlayer.addView(teamLine);
+            if(Utils.isCurrentUserCoach()){
+                if(((Coach)Utils.userToPlayerOrCoach(Utils.getCurrentAppUser())).equals(team.getCoach())){
+                    Button btnEdit = new Button(this);
+                    btnEdit.setText("Edit");
+                    btnEdit.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {
+                        Intent intent = new Intent(TeamDetailsActivity.this, EditMembershipActivity.class);
+                        intent.putExtra("id", membership.getId());
+                        startActivity(intent);
+                    }
+                    });
+                    linearLayoutPlayer.addView(btnEdit);
+                }
+            }
+
+
+
+            linearLayoutPlayers.addView(linearLayoutPlayer);
         }
     }
 

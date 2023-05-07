@@ -18,7 +18,6 @@ import com.example.myapplication.Utils;
 import com.example.myapplication.model.AppUser;
 import com.example.myapplication.model.Coach;
 import com.example.myapplication.model.Player;
-import com.example.myapplication.model.enums.VolleyballPosition;
 import com.example.myapplication.repositories.CoachRepository;
 import com.example.myapplication.repositories.PlayerRepository;
 
@@ -45,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         //BOTÓN REGISTER
         Button btnRegister = findViewById(R.id.btnRegister);
         ToggleButton isPlayer = findViewById(R.id.isPlayer);
-        Spinner preferredPosition = findViewById(R.id.preferredPosition);
+        Spinner preferredPosition = findViewById(R.id.inputPosition);
         preferredPosition.setEnabled(isPlayer.isChecked());
         isPlayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -69,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = ((TextView)findViewById(R.id.email)).getText().toString();
         String password = ((TextView)findViewById(R.id.password)).getText().toString();
         String passwordConfirm = ((TextView)findViewById(R.id.passwordConfirm)).getText().toString();
-        String preferredPosition = ((Spinner)findViewById(R.id.preferredPosition)).getSelectedItem().toString();
+        String preferredPosition = ((Spinner)findViewById(R.id.inputPosition)).getSelectedItem().toString();
 
         DatePicker birthday = findViewById(R.id.birthday);
         String strBirthday = birthday.getDayOfMonth() + "/" + (birthday.getMonth() +1) + "/" + birthday.getYear();

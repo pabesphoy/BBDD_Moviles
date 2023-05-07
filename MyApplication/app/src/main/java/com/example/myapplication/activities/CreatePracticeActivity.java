@@ -2,11 +2,13 @@ package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,7 +28,8 @@ import io.realm.Realm;
 
 public class CreatePracticeActivity extends AppCompatActivity {
 
-    private EditText teamEdt, dateEdt, placeEdt;
+    private EditText teamEdt,  placeEdt;
+    private DatePicker dateEdt;
     private Realm realm;
 
     private String team, date, place;
@@ -51,13 +54,13 @@ public class CreatePracticeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 team = teamEdt.getText().toString();
-                date = dateEdt.getText().toString();
+                date = "" + dateEdt.getDayOfMonth() + "/" + (dateEdt.getMonth()+1) + "/" + dateEdt.getYear();
                 place = placeEdt.getText().toString();
 
-                if (TextUtils.isEmpty(team)) {
+                if (TextUtils.isEmpty(team) || teamService.getByName(team) == null) {
                     teamEdt.setError("Please enter the name of an existent team");
                 } else if (TextUtils.isEmpty(date)) {
-                    dateEdt.setError("Please enter a valid date");
+                    Utils.sendBubbleMessage(CreatePracticeActivity.this, "Invalid date");
                 } else if (TextUtils.isEmpty(place)) {
                     placeEdt.setError("Please enter a place for the practice");
                 } else {
@@ -71,9 +74,7 @@ public class CreatePracticeActivity extends AppCompatActivity {
                     }
                     practiceService.insertOrUpdate(p);
                     Toast.makeText(CreatePracticeActivity.this, "Practice added to database..", Toast.LENGTH_SHORT).show();
-                    teamEdt.setText("");
-                    dateEdt.setText("");
-                    placeEdt.setText("");
+                    startActivity(new Intent(CreatePracticeActivity.this, PracticesActivity.class));
                 }
             }
         });

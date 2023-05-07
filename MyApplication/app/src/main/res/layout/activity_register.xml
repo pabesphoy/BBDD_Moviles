@@ -78,7 +78,7 @@
             android:textAlignment="center" />
 
         <Spinner
-            android:id="@+id/preferredPosition"
+            android:id="@+id/inputPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/spinnerItems" />

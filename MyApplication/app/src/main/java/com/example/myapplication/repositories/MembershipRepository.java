@@ -1,9 +1,12 @@
 package com.example.myapplication.repositories;
 
+import android.widget.Switch;
+
 import com.example.myapplication.model.JoinRequest;
 import com.example.myapplication.model.Membership;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
+import com.example.myapplication.model.enums.VolleyballPosition;
 
 import java.util.Collection;
 
@@ -49,17 +52,22 @@ public class MembershipRepository implements BaseRepository<Membership, Long> {
 
     @Override
     public boolean deleteByPrimaryKey(Long key) {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Membership membership = getByPrimaryKey(key);
-                if(membership != null){
-                    membership.deleteFromRealm();
-                }
-            }
-        });
+        realm.beginTransaction();
+        Membership membership = getByPrimaryKey(key);
+        if(membership != null){
+            membership.deleteFromRealm();
+        }
+        realm.copyToRealmOrUpdate(membership);
+        realm.commitTransaction();
         return getByPrimaryKey(key) == null;
     }
 
 
+    public void edit(Membership membership, String number, String position, Boolean isCaptain) {
+        realm.beginTransaction();
+        membership.setNumber(Integer.valueOf(number));
+        membership.setPosition(VolleyballPosition.toVolleyballPosition(position));
+        membership.setCaptain(isCaptain);
+        realm.commitTransaction();
+    }
 }

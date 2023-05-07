@@ -16,6 +16,7 @@ import com.example.myapplication.model.Practice;
 import com.example.myapplication.services.PracticeService;
 import com.example.myapplication.services.TeamService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class PracticesActivity extends AppCompatActivity {
 
 
         List<Practice> practices = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         if(Utils.isCurrentUserPlayer()){
             practices = practiceService.getByPlayer((Player) Utils.userToPlayerOrCoach(Utils.getCurrentAppUser()),true);
         } else if (Utils.isCurrentUserCoach()) {
@@ -55,11 +57,10 @@ public class PracticesActivity extends AppCompatActivity {
         for(Practice practice : practices){
             Button button = new Button(PracticesActivity.this);
             button.setTag("btnPracticeDetailsId=" + practice.getId());
-            button.setText(practice.getDate().toString());
+            button.setText(practice.getTeam().getName() + " - " + practice.getPlace() + " - " + formatter.format(practice.getDate()));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Utils.sendBubbleMessage(PracticesActivity.this, button.getTag().toString());
                     Intent intent = new Intent(PracticesActivity.this, PracticeDetailsActivity.class);
                     intent.putExtra("id",practice.getId());
                     startActivity(intent);

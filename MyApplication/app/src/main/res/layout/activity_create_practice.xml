@@ -14,19 +14,17 @@
 
 
     <EditText
-        android:id="@+id/idEdtDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Date"
-        android:inputType="date" />
-
-
-    <EditText
         android:id="@+id/idEdtPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Place"/>
 
+
+    <DatePicker
+        android:id="@+id/idEdtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner" />
 
     <Button
         android:id="@+id/idBtnCreatePractice"

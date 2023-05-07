@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         app = Utils.app;
         Realm con = Utils.getRealm();
-        Utils.sendBubbleMessage(this, ""+ con.where(AppUser.class).count());
 
         //BOTÓN LOGIN
         Button btnLogin = findViewById(R.id.btnLogin);

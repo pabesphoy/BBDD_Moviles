@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.Utils;
@@ -19,6 +20,8 @@ import com.example.myapplication.services.PracticeService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class PracticeDetailsActivity extends AppCompatActivity {
 
@@ -41,7 +44,8 @@ public class PracticeDetailsActivity extends AppCompatActivity {
 
         teamEdt.setText(currentPractice.getTeam().getName(), TextView.BufferType.NORMAL);
         placeEdt.setText(currentPractice.getPlace(), TextView.BufferType.EDITABLE);
-        dateEdt.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentPractice.getDate()), TextView.BufferType.EDITABLE);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        dateEdt.setText(formatter.format(currentPractice.getDate()), TextView.BufferType.EDITABLE);
 
         if(Utils.isCurrentUserPlayer()) {
             btnPracticeEdt.setVisibility(View.GONE);
@@ -50,11 +54,18 @@ public class PracticeDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     try {
-                        practiceService.edit(placeEdt.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(dateEdt.getText().toString()),currentPractice);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
+
+                        if(formatter.parse(dateEdt.getText().toString()).after(new GregorianCalendar(1900, 1, 1).getTime())){
+                            practiceService.edit(placeEdt.getText().toString(),formatter.parse(dateEdt.getText().toString()),currentPractice);
+                            Toast.makeText(PracticeDetailsActivity.this, "Practice edited..", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PracticeDetailsActivity.this, PracticesActivity.class));
+                        }else{
+                            Toast.makeText(PracticeDetailsActivity.this, "Invalid date", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(PracticeDetailsActivity.this, "Invalid data", Toast.LENGTH_SHORT).show();
                     }
-                    startActivity(new Intent(PracticeDetailsActivity.this,PracticesActivity.class));
                 }
             });
         }

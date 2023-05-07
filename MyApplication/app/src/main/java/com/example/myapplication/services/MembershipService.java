@@ -1,12 +1,15 @@
 package com.example.myapplication.services;
 
+import android.text.Editable;
 import android.util.Log;
+import android.widget.Switch;
 
 import com.example.myapplication.model.Membership;
 import com.example.myapplication.model.Player;
 import com.example.myapplication.model.Team;
 import com.example.myapplication.repositories.MembershipRepository;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,5 +47,9 @@ public class MembershipService {
     public void deleteById(Long id){
         if(!repository.deleteByPrimaryKey(id))
             Log.e("ERROR","Error borrando membresía");
+    }
+
+    public void edit(Membership membership, String number, String position, Boolean isCaptain) {
+        repository.edit(membership, number, position, isCaptain);
     }
 }
